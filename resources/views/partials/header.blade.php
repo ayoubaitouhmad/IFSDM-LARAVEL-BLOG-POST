@@ -8,12 +8,25 @@
         </nav>
         <div class="flex items-center space-x-4">
             <div class="hidden md:flex items-center space-x-2">
-                <img src="https://via.placeholder.com/40" alt="User Avatar" class="w-10 h-10 rounded-full shadow-sm">
-                <span class="font-medium">John Doe</span>
+
+                @isset($currentUser)
+                    <img
+                        src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?q=80&w=3869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="User Avatar" class="w-10 h-10 rounded-full shadow-sm">
+                    <span class="font-medium">
+                    {{ $currentUser->name }}
+                    </span>
+                @else
+                    <a href="login">Login</a>
+                @endisset
+
+
             </div>
-            <button class="md:hidden focus:outline-none" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            <button class="md:hidden focus:outline-none"
+                    onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
             </button>
         </div>
@@ -23,8 +36,17 @@
         <a href="#articles" class="block py-2 font-medium hover:text-indigo-600 transition">Articles</a>
         <a href="#" class="block py-2 font-medium hover:text-indigo-600 transition">About</a>
         <div class="flex items-center py-2">
-            <img src="https://via.placeholder.com/40" alt="User Avatar" class="w-10 h-10 rounded-full shadow-sm mr-2">
-            <span class="font-medium">John Doe</span>
+            @isset($currentUser)
+                <img
+                    src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?q=80&w=3869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="User Avatar" class="w-10 h-10 rounded-full shadow-sm">
+                <span class="font-medium">
+                    {{ $currentUser->name }}
+                    </span>
+            @else
+                <a href="login">Login</a>
+            @endisset
+
         </div>
     </div>
 </header>
