@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::defaultView('pagination::tailwind');
+        // TODO : @saadEnne remove this after you implement auth system
         Auth::login(User::query()->first());
         if (Auth::check()) {
             View::share(['currentUser' => Auth::user()]);
