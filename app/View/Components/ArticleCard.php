@@ -10,14 +10,13 @@ use Illuminate\View\Component;
 class ArticleCard extends Component
 {
 
-    private Article $article;
+
 
     /**
      * Create a new component instance.
      */
-    public function __construct(Article $article)
+    public function __construct(public Article $article)
     {
-        $this->article = $article;
     }
 
     /**
