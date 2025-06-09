@@ -6,6 +6,8 @@ use App\Models\Article;
 use App\Models\Comment;
 use App\Models\User;
 use App\Policies\ArticlePolicy;
+use Illuminate\Support\Facades\Gate;
+
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,10 +16,6 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-
-    protected $policies = [
-        Article::class => ArticlePolicy::class,
-    ];
 
 
 
@@ -37,11 +35,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::defaultView('pagination::tailwind');
         // TODO : @SaadEnne remove this after you implement auth system
-        Auth::login(User::query()->first());
+//        Auth::login(User::query()->first());
         if (Auth::check()) {
             View::share(['currentUser' => Auth::user()]);
         }
 
 
+        Gate::policy(Article::class, ArticlePolicy::class);
     }
 }
