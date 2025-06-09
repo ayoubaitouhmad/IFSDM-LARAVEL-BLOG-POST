@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Authenticated\User\Articles\UserArticleController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\User\Articles\UserArticleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -23,8 +23,8 @@ Route::name('author.')->prefix('@{username}')
 
 Route::middleware('auth')->group(function () {
     Route::name('user.')->prefix('@me')
-        ->controller(UserArticleController::class)->group(function () {
-            Route::get('articles', 'index')->name('articles');
+        ->group(function () {
+            Route::resource('articles', UserArticleController::class);
         });
 
 });

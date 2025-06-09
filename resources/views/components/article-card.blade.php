@@ -1,24 +1,29 @@
 <article class="relative bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition">
     <!-- Boutons Edit/Delete en haut à droite -->
 
-        <div class="absolute top-4 right-4 flex space-x-2">
-
-                <a href=""
-                   class="px-3 py-1 bg-indigo-600 text-white text-sm font-medium rounded-full shadow hover:bg-indigo-700 transition">
-                    Edit
-                </a>
-
-                <form action="" method="POST"
-                      onsubmit="return confirm('Are you sure?');">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit"
-                            class="px-3 py-1 bg-red-600 text-white text-sm font-medium rounded-full shadow hover:bg-red-700 transition">
-                        Delete
-                    </button>
-                </form>
-
-        </div>
+    @if($showCrudButtons)
+        @canany(['update', 'delete'], $article)
+            <div class="absolute top-4 right-4 flex space-x-2">
+                @can('update', $article)
+                    <a href="{{ route('user.articles.edit', $article) }}"
+                       class="px-3 py-1 bg-indigo-600 text-white text-sm font-medium rounded-full shadow hover:bg-indigo-700 transition">
+                        Edit
+                    </a>
+                @endcan
+                @can('delete', $article)
+                    <form action="{{ route('user.articles.destroy', $article) }}" method="POST"
+                          onsubmit="return confirm('Are you sure?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                                class="px-3 py-1 bg-red-600 text-white text-sm font-medium rounded-full shadow hover:bg-red-700 transition">
+                            Delete
+                        </button>
+                    </form>
+                @endcan
+            </div>
+        @endcanany
+    @endif
 
 
     <img

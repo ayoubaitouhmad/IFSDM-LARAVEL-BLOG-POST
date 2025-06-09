@@ -10,13 +10,15 @@ use Illuminate\View\Component;
 class ArticleCard extends Component
 {
 
+    public bool $showCrudButtons;
 
 
     /**
      * Create a new component instance.
      */
-    public function __construct(public Article $article)
+    public function __construct(public Article $article , bool $showCrudButtons = false)
     {
+        $this->showCrudButtons = $showCrudButtons;
     }
 
     /**
