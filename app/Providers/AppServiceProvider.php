@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Article;
 use App\Models\Comment;
 use App\Models\User;
+use App\Policies\ArticlePolicy;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -12,6 +14,13 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
+    protected $policies = [
+        Article::class => ArticlePolicy::class,
+    ];
+
+
+
     /**
      * Register any application services.
      */
@@ -32,5 +41,7 @@ class AppServiceProvider extends ServiceProvider
         if (Auth::check()) {
             View::share(['currentUser' => Auth::user()]);
         }
+
+
     }
 }
