@@ -2,8 +2,8 @@
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
         <a href="#" class="text-2xl font-bold text-indigo-600">MyBlog</a>
         <nav class="hidden md:flex space-x-8 font-medium">
-            <a href="#" class="hover:text-indigo-600 transition">Home</a>
-            <a href="#articles" class="hover:text-indigo-600 transition">Articles</a>
+            <a href="{{ route('home') }}" class="hover:text-indigo-600 transition">Home</a>
+            <a href="{{ route('articles.index') }}" class="hover:text-indigo-600 transition">Articles</a>
             <a href="#" class="hover:text-indigo-600 transition">About</a>
         </nav>
         <div class="flex items-center space-x-4">
