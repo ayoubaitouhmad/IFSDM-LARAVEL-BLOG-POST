@@ -6,7 +6,7 @@ use App\Http\Controllers\Authenticated\User\Articles\UserProfileController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+
 
 Route::get('/login', function () {
     return view('pages.auth.login');
@@ -33,7 +33,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::name('articles.')->prefix('articles')
     ->controller(ArticleController::class)->group(function () {
         Route::get('', 'index')->name('index');
-        Route::get('search', 'search')->name('search');
         Route::get('{id}/{username?}/{title?}', 'show')->name('show');
     });
 
@@ -50,5 +49,7 @@ Route::middleware(['auth' , 'auth:sanctum'])->group(function () {
                 Route::get('profile', 'index')->name('index');
                 Route::put('edit', 'edit')->name('edit');
             });
+
         });
+
 });

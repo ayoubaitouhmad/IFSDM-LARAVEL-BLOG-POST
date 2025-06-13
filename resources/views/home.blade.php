@@ -10,6 +10,6 @@
         </div>
     </section>
 
-   <x-articles :articles="$articles"  :show-header="false" />
+   <x-articles :articles="$articles"  :show-header="false"  />
 
 @endsection
