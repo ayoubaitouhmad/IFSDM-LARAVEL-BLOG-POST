@@ -11,11 +11,53 @@ use Illuminate\Validation\Rule;
 
 class UserArticleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+
+//        Article::factory()->count(10)->create();
+
         $user = Auth::user();
-        $articles = $user->articles()?->latest()->paginate(5);
-        return view('pages.authenticated.user-articles.articles', compact('articles'));
+        $query = Article::query();
+
+        $activeFilters = 0;
+
+        $query->where('user_id', $user->id);
+
+        if ($kw = $request->input('f-search')) {
+            $query->where('title', 'like', "%{$kw}%");
+            $activeFilters++;
+        }
+
+        if ($date = $request->input('f-startDate')) {
+            $activeFilters++;
+            $query->where('published_at' , '>', $date);
+        }
+
+        if ($date = $request->input('f-endDate')) {
+            $activeFilters++;
+            $query->where('published_at' , '<', $date);
+        }
+
+        if ($orderBy = $request->input('f-orderBy')) {
+            $query->orderBy(OrderBy::from((int)$orderBy)->coulumn() , 'ASC');
+        }
+
+        $articles = $query
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+
+        return view('pages.authenticated.user-articles.articles', [
+            "activeFilters" => $activeFilters,
+            "articles" => $articles,
+            "input"=>$request->all()
+        ]);
+
+
+
+
+
     }
 
     /**
@@ -44,10 +86,10 @@ class UserArticleController extends Controller
         $validated['user_id'] = Auth::id();
 
         if((int)$validated['status'] == ArticleStatus::PUBLISHED->value) {
-            $validated['status'] = ArticleStatus::PUBLISHED->text();
+            $validated['status'] = ArticleStatus::PUBLISHED;
             $validated['published_at'] = now();
         }else{
-            $validated['status'] = ArticleStatus::DRAFT->text();
+            $validated['status'] = ArticleStatus::DRAFT;
         }
 
         Article::query()->create($validated);

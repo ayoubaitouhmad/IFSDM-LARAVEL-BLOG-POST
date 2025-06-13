@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ArticleStatus;
 use App\Models\Article;
 use App\Models\User;
 use Database\Seeders\ArticleSeeder;
@@ -26,11 +27,11 @@ class ArticleFactory extends Factory
     {
         $title = $this->faker->sentence();
         return [
-            'user_id'    => User::inRandomOrder()->first()->id,
+            'user_id'    => User::first()->id,
             'title'        => $title,
             'slug'         => Str::slug($title) . '-' . $this->faker->unique()->numberBetween(1,1000),
             'content'      => $this->faker->paragraphs(3, true),
-            'status'       => $this->faker->randomElement(['draft','published']),
+            'status'       => $this->faker->randomElement(ArticleStatus::cases()),
             'published_at' => now(),
         ];
     }

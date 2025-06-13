@@ -6,6 +6,7 @@ use App\Enums\ArticleStatus;
 use App\Enums\OrderBy;
 use App\Models\Article;
 use App\Models\User;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +19,7 @@ class ArticleController extends Controller
 
         $activeFilters = 0;
 
-        if ($kw = $request->input('search')) {
+        if ($kw = $request->input('f-search')) {
             $query->where('title', 'like', "%{$kw}%");
             $activeFilters++;
         }
@@ -46,10 +47,14 @@ class ArticleController extends Controller
 
 
         $articles = $query
-            ->where('status', ArticleStatus::PUBLISHED->text())
+            ->where('status', ArticleStatus::PUBLISHED->value)
             ->latest()
             ->paginate(10)
             ->withQueryString();
+//
+//        dd(
+//            $articles->all()
+//        );
 
 
         return view('articles.home', [
@@ -59,13 +64,6 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function search(Request $request)
-    {
-        dd(
-            $request->all()
-        );
-
-    }
 
 
     public function show(string $id, string $username = null, string $title = null)

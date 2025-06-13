@@ -16,19 +16,31 @@ class Articles extends Component
     public $users;
     public $orderByOptions;
     public int $activeFilters = 0 ;
+    public  $filterRoute ;
+    public bool $showFilterByUser ;
 
     /**
      * @param $articles
      * @param bool $showHeader
      */
-    public function __construct($articles, int $activeFilters = 0, bool $showHeader = false )
+    public function __construct(
+        $articles,
+        $filterRoute = null,
+        int $activeFilters = 0,
+        bool $showHeader = false,
+        bool $showFilterByUser = false,
+    )
     {
         $this->articles = $articles;
+        $this->filterRoute = $filterRoute;
         $this->showHeader = $showHeader;
+        $this->showFilterByUser = $showFilterByUser;
         if($this->showHeader){
             $this->users = User::getAllForSelect();
             $this->orderByOptions = OrderBy::toArray();
             $this->activeFilters = $activeFilters;
+
+
         }else{
             $this->users = collect([]);
         }
