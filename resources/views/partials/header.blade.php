@@ -85,8 +85,8 @@
                         </div>
                     </div>
                 @else
-                    <a href="#" class="text-indigo-600 hover:text-indigo-700 font-medium transition">Login</a>
-                    <a href="#" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">Sign Up</a>
+                    <a href="{{ route('login') }}" class="text-indigo-600 hover:text-indigo-700 font-medium transition">Connexion</a>
+                    <a href="{{ route('register') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">S'inscrire</a>
                 @endisset
             </div>
 
