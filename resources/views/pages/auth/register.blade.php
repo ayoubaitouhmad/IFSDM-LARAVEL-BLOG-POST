@@ -56,7 +56,6 @@
                 // Stocker le token dans le localStorage ou sessionStorage
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify(data.user));
-                alert('Inscription réussie !');
                 // Rediriger vers une page après inscription
                 window.location.href = '/dashboard';
             } else {
