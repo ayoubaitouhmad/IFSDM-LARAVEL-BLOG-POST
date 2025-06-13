@@ -46,7 +46,6 @@
                 // Stocker le token dans le localStorage ou sessionStorage
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify(data.user));
-                alert('Connexion réussie !');
                 // Rediriger vers une page après connexion
                 window.location.href = '/dashboard';
             } else {

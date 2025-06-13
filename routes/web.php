@@ -6,7 +6,7 @@ use App\Http\Controllers\Authenticated\User\Articles\UserProfileController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/login', function () {
     return view('pages.auth.login');
@@ -17,15 +17,16 @@ Route::get('/register', function () {
 })->name('register');
 
 Route::get('/logout', function (Request $request) {
-    auth()->user()->tokens()->delete();
-    return response()->json(['message' => 'Logged out successfully']);
-})->middleware('auth:sanctum')->name('logout');
-
+    Auth::guard('web')->logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    auth()->user()?->tokens()?->delete();
+    return redirect()->route('login');
+})->middleware(['auth' ,'auth:sanctum'])->name('logout');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware('auth:sanctum');
-
+})->middleware(['auth']);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -41,8 +42,7 @@ Route::name('author.')->prefix('@{username}')
         Route::get('articles', 'index')->name('articles');
     });
 
-
-Route::middleware('auth:sanctum')->group(callback: function () {
+Route::middleware(['auth' , 'auth:sanctum'])->group(function () {
     Route::name('user.')->prefix('@me')
         ->group(function () {
             Route::resource('articles', UserArticleController::class);
@@ -50,7 +50,5 @@ Route::middleware('auth:sanctum')->group(callback: function () {
                 Route::get('profile', 'index')->name('index');
                 Route::put('edit', 'edit')->name('edit');
             });
-
         });
-
 });

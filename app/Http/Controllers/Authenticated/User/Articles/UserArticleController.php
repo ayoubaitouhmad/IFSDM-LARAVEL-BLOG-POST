@@ -14,7 +14,7 @@ class UserArticleController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $articles = $user->articles()->latest()->paginate(5);
+        $articles = $user->articles()?->latest()->paginate(5);
         return view('pages.authenticated.user-articles.articles', compact('articles'));
     }
 
