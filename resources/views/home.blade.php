@@ -4,20 +4,12 @@
         <div class="container mx-auto px-6 text-center">
             <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Welcome to My Modern Blog</h1>
             <p class="mb-6 text-lg md:text-xl">Discover the latest trends in web development, design, and more.</p>
-            <a href="#articles" class="inline-block bg-white text-indigo-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition">Explore Articles →</a>
+            <a href="#articles"
+               class="inline-block bg-white text-indigo-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition">Explore
+                Articles →</a>
         </div>
     </section>
 
-
-    <main id="articles" class="flex-1 container mx-auto px-6 py-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        @foreach($articles as  $article)
-            <x-article-card :article="$article"></x-article-card>
-        @endforeach
-
-    </main>
-
-    <div class="container mx-auto px-6 py-4">
-        {{ $articles->links('pagination::tailwind') }}
-    </div>
+   <x-articles :articles="$articles"  :show-header="false" />
 
 @endsection

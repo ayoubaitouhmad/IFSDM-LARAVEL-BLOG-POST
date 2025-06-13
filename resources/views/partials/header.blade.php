@@ -2,8 +2,8 @@
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
         <a href="#" class="text-2xl font-bold text-indigo-600">MyBlog</a>
         <nav class="hidden md:flex space-x-8 font-medium">
-            <a href="#" class="hover:text-indigo-600 transition">Home</a>
-            <a href="#" class="hover:text-indigo-600 transition">Articles</a>
+            <a href="{{ route('home') }}" class="hover:text-indigo-600 transition">Home</a>
+            <a href="{{ route('articles.index') }}" class="hover:text-indigo-600 transition">Articles</a>
             <a href="#" class="hover:text-indigo-600 transition">About</a>
         </nav>
         <div class="flex items-center space-x-4">
@@ -15,7 +15,7 @@
                         <button @click="open = !open"
                                 @click.away="open = false"
                                 class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                            <img src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?q=80&w=3869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            <img src="{!! $currentUser->avatar() !!}"
                                  alt="User Avatar"
                                  class="w-10 h-10 rounded-full shadow-sm">
                             <span class="font-medium">{{ $currentUser->name }}</span>
@@ -43,11 +43,18 @@
                             </div>
 
                             <!-- Menu Items -->
-                            <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
+                            <a href="{{ route('user.profile.index') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
                                 <svg class="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                 </svg>
                                 My Profile
+                            </a>
+
+                            <a href="{{ route('user.articles.index') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
+                                <svg class="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                               Mes articles
                             </a>
 
                             <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
@@ -103,7 +110,7 @@
         <div class="border-t mt-4 pt-4">
             @isset($currentUser)
                 <div class="flex items-center space-x-3 mb-4">
-                    <img src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?q=80&w=3869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    <img src=""
                          alt="User Avatar"
                          class="w-10 h-10 rounded-full shadow-sm">
                     <div>
