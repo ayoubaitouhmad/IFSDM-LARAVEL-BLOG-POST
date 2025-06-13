@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ArticleStatus;
 use App\Models\Article;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -22,7 +23,7 @@ class ArticleSeeder extends Seeder
                 'title'        => 'Welcome to MyBlog',
                 'slug'         => 'welcome-to-myblog',
                 'content'      => 'This is the first post on MyBlog. Stay tuned!',
-                'status'       => 'published',
+                'status'       => ArticleStatus::PUBLISHED->value,
                 'published_at' => now(),
                 'created_at'   => now(),
                 'updated_at'   => now(),
