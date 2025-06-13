@@ -1,5 +1,4 @@
 <article class="relative bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition">
-    <!-- Boutons Edit/Delete en haut à droite -->
 
     @if($showCrudButtons)
         @canany(['update', 'delete'], $article)
@@ -21,8 +20,12 @@
                         </button>
                     </form>
                 @endcan
+
+
             </div>
+
         @endcanany
+
     @endif
 
 
@@ -33,6 +36,7 @@
     <div class="p-6">
         <h2 class="text-2xl font-semibold mb-2">
             {{ $article->title }}
+
         </h2>
         <div class="flex items-center justify-between mb-4">
             <div class="text-gray-500 text-sm">
@@ -41,11 +45,19 @@
                    class="font-medium text-blue-600 hover:underline">
                     {{ $article->author->name }}
                 </a>
-                • {{ $article->published_at->format('F j, Y') }}
+                @isset($article->published_at)
+                    • {{  $article->published_at->format('F j, Y') }}
+
+                @endisset
+
             </div>
             <div class="flex items-center text-gray-500 text-sm">
                 <i class="fa-solid fa-eye mr-1"></i>
-                <span>{{ $article->views_count ?? 0 }}</span>
+                <span class="mx-1">{{ $article->views_count ?? 0 }}</span>
+                @if($article->isDraft())
+                    <span
+                        class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">Badge</span>
+                @endif
             </div>
         </div>
 
