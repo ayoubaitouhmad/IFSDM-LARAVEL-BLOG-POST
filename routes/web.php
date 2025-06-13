@@ -4,7 +4,28 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Authenticated\User\Articles\UserArticleController;
 use App\Http\Controllers\Authenticated\User\Articles\UserProfileController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+
+Route::get('/login', function () {
+    return view('pages.auth.login');
+})->name('login');
+
+Route::get('/register', function () {
+    return view('pages.auth.register');
+})->name('register');
+
+Route::get('/logout', function (Request $request) {
+    auth()->user()->tokens()->delete();
+    return response()->json(['message' => 'Logged out successfully']);
+})->middleware('auth:sanctum')->name('logout');
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware('auth:sanctum');
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -21,9 +42,7 @@ Route::name('author.')->prefix('@{username}')
     });
 
 
-
-
-Route::middleware('auth')->group(callback: function () {
+Route::middleware('auth:sanctum')->group(callback: function () {
     Route::name('user.')->prefix('@me')
         ->group(function () {
             Route::resource('articles', UserArticleController::class);
