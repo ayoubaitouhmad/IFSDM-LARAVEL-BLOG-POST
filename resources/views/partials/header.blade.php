@@ -8,17 +8,17 @@
         </nav>
         <div class="flex items-center space-x-4">
             <div class="hidden md:flex items-center space-x-2">
-                @isset($currentUser)
-                    <!-- Profile Dropdown -->
+                @auth('web')
+                <!-- Profile Dropdown -->
                     <div class="relative" x-data="{ open: false }">
                         <!-- Profile Button -->
                         <button @click="open = !open"
                                 @click.away="open = false"
                                 class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                            <img src="{!! $currentUser->avatar() !!}"
+                            <img src="{!! auth()->user()->avatar() !!}"
                                  alt="User Avatar"
                                  class="w-10 h-10 rounded-full shadow-sm">
-                            <span class="font-medium">{{ $currentUser->name }}</span>
+                            <span class="font-medium">{{ auth()->user()->name }}</span>
                             <svg class="w-4 h-4 text-gray-600 transition-transform duration-200"
                                  :class="{ 'rotate-180': open }"
                                  fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,8 +38,8 @@
 
                             <!-- User Info -->
                             <div class="px-4 py-3 border-b border-gray-100">
-                                <p class="text-sm font-medium text-gray-900">{{ $currentUser->name }}</p>
-                                <p class="text-sm text-gray-500 truncate">{{ $currentUser->email }}</p>
+                                <p class="text-sm font-medium text-gray-900">{{ auth()->user()->name }}</p>
+                                <p class="text-sm text-gray-500 truncate">{{ auth()->user()->email }}</p>
                             </div>
 
                             <!-- Menu Items -->
@@ -65,7 +65,7 @@
                                 Settings
                             </a>
 
-                            @if($currentUser->is_admin)
+                            @if(auth()->user()->is_admin)
                                 <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition">
                                     <svg class="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
@@ -76,7 +76,7 @@
 
                             <div class="border-t border-gray-100 mt-1"></div>
 
-                            <a href="#" class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition text-left">
+                            <a href="{{ route('logout') }}" class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition text-left">
                                 <svg class="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                                 </svg>
@@ -87,7 +87,8 @@
                 @else
                     <a href="{{ route('login') }}" class="text-indigo-600 hover:text-indigo-700 font-medium transition">Connexion</a>
                     <a href="{{ route('register') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">S'inscrire</a>
-                @endisset
+                @endauth
+
             </div>
 
             <!-- Mobile Menu Button -->
@@ -108,20 +109,20 @@
         <a href="#" class="block py-2 font-medium hover:text-indigo-600 transition">About</a>
 
         <div class="border-t mt-4 pt-4">
-            @isset($currentUser)
+            @auth('web')
                 <div class="flex items-center space-x-3 mb-4">
                     <img src=""
                          alt="User Avatar"
                          class="w-10 h-10 rounded-full shadow-sm">
                     <div>
-                        <p class="font-medium">{{ $currentUser->name }}</p>
-                        <p class="text-sm text-gray-500">{{ $currentUser->email }}</p>
+                        <p class="font-medium">{{ auth()->user()->name }}</p>
+                        <p class="text-sm text-gray-500">{{ auth()->user()->email }}</p>
                     </div>
                 </div>
 
                 <a href="#" class="block py-2 text-gray-700 hover:text-indigo-600 transition">My Profile</a>
                 <a href="#" class="block py-2 text-gray-700 hover:text-indigo-600 transition">Settings</a>
-                @if($currentUser->is_admin)
+                @if(auth()->user()->is_admin)
                     <a href="#" class="block py-2 text-gray-700 hover:text-indigo-600 transition">Dashboard</a>
                 @endif
 
@@ -129,9 +130,9 @@
                     Sign Out
                 </a>
             @else
-                <a href="#" class="block py-2 text-indigo-600 hover:text-indigo-700 transition">Login</a>
-                <a href="#" class="block py-2 bg-indigo-600 text-white text-center rounded-lg hover:bg-indigo-700 transition mt-2">Sign Up</a>
-            @endisset
+                <a href="{{ route('login') }}" class="text-indigo-600 hover:text-indigo-700 font-medium transition">Connexion</a>
+                <a href="{{ route('register') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">S'inscrire</a>
+            @endauth
         </div>
     </div>
 </header>
