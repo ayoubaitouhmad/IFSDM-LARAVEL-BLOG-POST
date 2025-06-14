@@ -47,7 +47,7 @@
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify(data.user));
                 // Rediriger vers une page après connexion
-                window.location.href = '/dashboard';
+                window.location.href = '/';
             } else {
                 alert(data.message || 'Erreur lors de la connexion');
             }
