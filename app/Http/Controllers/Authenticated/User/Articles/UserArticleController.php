@@ -108,7 +108,12 @@ class UserArticleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $article = Article::query()->findOrFail($id);
+        $statusOptions = ArticleStatus::toArray();
+        return view('pages.authenticated.user-articles.show-article', [
+            'statusOptions' => $statusOptions,
+            'article' => $article
+        ]);
     }
 
     /**
@@ -122,11 +127,34 @@ class UserArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, string $id)
     {
-        //
-    }
+        $article = Article::query()->findOrFail($id);
 
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('articles', 'slug')->ignore($article->id)
+            ],
+            'content' => ['required', 'string'],
+            'status' => ['required', Rule::in(array_keys(ArticleStatus::toArray()))],
+        ]);
+
+        if((int)$validated['status'] == ArticleStatus::PUBLISHED->value) {
+            $validated['status'] = ArticleStatus::PUBLISHED;
+            $validated['published_at'] = now();
+        } else {
+            $validated['status'] = ArticleStatus::DRAFT;
+        }
+
+        $article->update($validated);
+        $this->success("success", "Article updated successfully");
+        return back();
+    }
     /**
      * Remove the specified resource from storage.
      */

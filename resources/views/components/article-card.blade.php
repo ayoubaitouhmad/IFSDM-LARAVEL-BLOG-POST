@@ -24,9 +24,17 @@
         @endcanany
     @endif
 
-    <img
-        src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?q=80&w=3869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="Learn Tailwind CSS">
+    <a href="{{ route('articles.show', $article) }}">
+        <img
+            src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?q=80&w=3869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Learn Tailwind CSS">
+    </a>
+    @if($article->isDraft())
+        <span
+            class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">
+                        brouillon
+                    </span>
+    @endif
 
     <div class="p-6">
         <h2 class="text-2xl font-semibold mb-2">
@@ -48,11 +56,8 @@
             </div>
             <div class="flex items-center text-gray-500 text-sm">
                 <i class="fa-solid fa-eye mr-1"></i>
-                <span class="mx-1">{{ $article->views_count ?? 0 }}</span>
-                @if($article->isDraft())
-                    <span
-                        class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">Badge</span>
-                @endif
+                <span class="mx-1">{{ $article->views }}</span>
+
             </div>
         </div>
 
@@ -63,5 +68,6 @@
            class="text-indigo-600 font-medium hover:underline">
             Read more →
         </a>
+
     </div>
 </article>

@@ -58,6 +58,7 @@ class ArticleController extends Controller
     public function show(string $id, string $username = null, string $title = null)
     {
         $article = Article::query()->findOrFail($id);
+        $article->increment('views');
         return view('articles.show', compact('article'));
     }
 }

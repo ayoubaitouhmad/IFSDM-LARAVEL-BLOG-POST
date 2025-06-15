@@ -27,9 +27,23 @@ class UserProfileController extends Controller
                 return redirect()->back();
             }
         }
+
+        if ($request->has('username') && $request->username != $user->username) {
+            if (!User::query()->where('username', $request['username'])->whereNot('id', $user->id)->first()) {
+                $user->username = $request->username;
+            } else {
+                $this->danger("error", "username already exists");
+                return redirect()->back();
+            }
+        }
         $user->name = $request->name;
-        if ($user->save()) {
-            $this->success("success", "user profile updated successfully");
+
+        if($user->isDirty()){
+            if ($user->save()) {
+                $this->success("success", "user profile updated successfully");
+            }
+        }else{
+            $this->info("error", "nothing to update");
         }
         return redirect()->back();
     }
