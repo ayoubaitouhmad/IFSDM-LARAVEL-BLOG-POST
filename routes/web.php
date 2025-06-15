@@ -25,11 +25,14 @@ Route::name('articles.')->prefix('articles')
     });
 
 
-Route::name('author.')->prefix('@{username}')->get('articles' , AuthorArticleController::class)->name('articles');
+Route::name('author.')
+    ->prefix('@{username}')
+    ->get('articles' , AuthorArticleController::class)
+    ->name('articles');
 
 
 Route::middleware(['auth', 'auth:sanctum'])->group(function () {
-    Route::name('user.')->prefix('@me')
+    Route::name('user.')->prefix('me')
         ->group(function () {
             Route::resource('articles', UserArticleController::class);
             Route::controller(UserProfileController::class)->name('profile.')->group(function () {
