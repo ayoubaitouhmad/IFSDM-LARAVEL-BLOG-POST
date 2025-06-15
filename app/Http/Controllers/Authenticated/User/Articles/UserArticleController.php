@@ -155,6 +155,7 @@ class UserArticleController extends Controller
                 Rule::unique('articles', 'slug')->ignore($article->id)
             ],
             'content' => ['required', 'string'],
+            'image'   => ['nullable', 'image', 'max:2048'],
             'status' => ['required', Rule::in(array_keys(ArticleStatus::toArray()))],
         ]);
 
@@ -166,6 +167,19 @@ class UserArticleController extends Controller
         }
 
         $article->update($validated);
+
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($article->image) {
+                Storage::disk('public')->delete($article->image);
+            }
+
+            $file = $request->file('image');
+            $filename = time() . '_' . Str::slug($request->title) . '.' . $file->getClientOriginalExtension();
+            $filePath = $file->storeAs('articles', $filename, 'public');
+            $article->update(['image' => $filePath]);
+        }
+
         $this->success("success", "Article updated successfully");
         return back();
     }
