@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Authenticated\User\Articles;
 
 use App\Enums\ArticleStatus;
+use App\Enums\OrderBy;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class UserArticleController extends Controller
@@ -87,7 +90,7 @@ class UserArticleController extends Controller
             'slug' => ['required', 'string', 'max:255', 'unique:articles,slug'],
             'content' => ['required', 'string'],
             'status' => ['required', Rule::in(array_keys(ArticleStatus::toArray()))],
-//            'image'   => ['nullable', 'image', 'max:2048']
+            'image'   => ['nullable', 'image', 'max:2048']
         ]);
         $validated['user_id'] = Auth::id();
 
@@ -97,8 +100,19 @@ class UserArticleController extends Controller
         }else{
             $validated['status'] = ArticleStatus::DRAFT;
         }
+        $article = Article::query()->create($validated);
 
-        Article::query()->create($validated);
+        if ($request->hasFile('image')) {
+            if ($article->image) {
+                Storage::disk('public')->delete($article->image);
+            }
+            $file = $request->file('image');
+            $filename = time().'_'.Str::slug($request->title).'.'.$file->getClientOriginalExtension();
+            $filePath = $file->storeAs('articles', $filename, 'public');
+            $article->update(['image' => $filePath]);
+        }
+
+
         $this->success("success", "user profile updated successfully");
         return back();
     }

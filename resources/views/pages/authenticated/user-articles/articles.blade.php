@@ -7,6 +7,5 @@
         :active-filters="$activeFilters"
         :show-crud-buttons="true"
 
-
     />
 @endsection

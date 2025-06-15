@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Laravolt\Avatar\Facade as Avatar;
+
+
 
 class Article extends Model
 {
@@ -35,6 +38,13 @@ class Article extends Model
     public function isDraft() : bool
     {
         return $this->status === ArticleStatus::DRAFT;
+    }
+
+
+    public function getImage()
+    {
+        return public_path($this->image);
+
     }
 
 }
