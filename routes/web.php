@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Authenticated\User\Articles\UserArticleController;
 use App\Http\Controllers\Authenticated\User\Articles\UserProfileController;
+use App\Http\Controllers\AuthorArticleController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,9 +37,10 @@ Route::name('articles.')->prefix('articles')
         Route::get('{id}/{username?}/{title?}', 'show')->name('show');
     });
 
-Route::name('author.')->prefix('@{username}')
-    ->controller(UserArticleController::class)->group(function () {
-        Route::get('articles', 'index')->name('articles');
+Route::name('author.')
+    ->prefix('@{username}')
+   ->group(function () {
+        Route::get('articles', AuthorArticleController::class)->name('articles');
     });
 
 Route::middleware(['auth' , 'auth:sanctum'])->group(function () {
@@ -53,3 +55,8 @@ Route::middleware(['auth' , 'auth:sanctum'])->group(function () {
         });
 
 });
+
+
+
+
+
