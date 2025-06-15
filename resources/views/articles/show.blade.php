@@ -3,74 +3,126 @@
 
 @section('content')
     <div class="min-h-screen bg-gray-50">
-        <article class="container mx-auto max-w-4xl px-4 py-8">
+        <!-- Hero Section with Gradient Top Design -->
+        <div class="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 overflow-hidden">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 bg-black/10"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
 
+            <!-- Decorative Elements -->
+            <div class="absolute top-10 right-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+            <div class="absolute top-32 left-20 w-16 h-16 bg-white/5 rounded-full blur-lg"></div>
+            <div class="absolute bottom-20 right-32 w-12 h-12 bg-white/10 rounded-full blur-md"></div>
 
-            <header class="mb-8">
-                <h1 class="text-4xl font-bold text-gray-800 mb-2">{{ $article->title }}</h1>
-                <div class="flex items-center text-gray-500 text-sm">
-                    <span>By <a href="{{ route('author.articles', $article->author->username) }}"  class="font-medium text-blue-600 hover:underline">{{ $article->author->username }}</a></span>
-                    <span class="mx-2">•</span>
-                                    <time datetime="{{ $article->published_at?->toDateString() }}">{{ $article->published_at?->format('F j, Y') }}</time>
+            <div class="relative container mx-auto max-w-4xl px-4 py-16">
+                <!-- Breadcrumb or Back Button -->
+                <div class="mb-8">
+                    <a href="{{ url()->previous() }}"
+                       class="inline-flex items-center text-white/80 hover:text-white transition group">
+                        <i class="fa-solid fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform"></i>
+                        Back to Articles
+                    </a>
                 </div>
-            </header>
 
+                <!-- Article Header -->
+                <header class="text-center mb-12">
+                    <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                        {{ $article->title }}
+                    </h1>
 
-            <img
-                src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?q=80&w=3869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="Learn Tailwind CSS" class="h-33 W-full object-cover rounded-lg mb-6">
-            <!-- Content -->
-            <div class="prose prose-lg max-w-none mb-12">
-                {!! $article->content !!}
+                    <!-- Author and Date Info -->
+                    <div class="flex items-center justify-center space-x-6 text-white/90 mb-8">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                                <i class="fa-solid fa-user text-white text-sm"></i>
+                            </div>
+                            <div class="text-left">
+                                <p class="text-sm text-white/70">Written by</p>
+                                <a href="{{ route('author.articles', $article->author->username) }}"
+                                   class="font-semibold text-white hover:text-white/80 transition">
+                                    {{ $article->author->username }}
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="w-px h-12 bg-white/20"></div>
+
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                                <i class="fa-solid fa-calendar text-white text-sm"></i>
+                            </div>
+                            <div class="text-left">
+                                <p class="text-sm text-white/70">Published</p>
+                                <time datetime="{{ $article->published_at?->toDateString() }}"
+                                      class="font-semibold text-white">
+                                    {{ $article->published_at?->format('F j, Y') }}
+                                </time>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article Stats -->
+                    <div class="flex items-center justify-center space-x-8 text-white/80">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-eye"></i>
+                            <span>{{ $article->views ?? 0 }} views</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-clock"></i>
+                            <span>{{ ceil(str_word_count(strip_tags($article->content)) / 200) }} min read</span>
+                        </div>
+                    </div>
+                </header>
             </div>
 
-            <!-- Tags -->
-            {{--        @if($article->tags->isNotEmpty())--}}
-            {{--            <div class="mb-12">--}}
-            {{--                <h2 class="font-semibold text-gray-700 mb-2">Tags:</h2>--}}
-            {{--                <div class="flex flex-wrap gap-2">--}}
-            {{--                    @foreach($article->tags as $tag)--}}
-            {{--                        <a href="{{ route('articles.tag', $tag->slug) }}" class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm hover:bg-indigo-200">--}}
-            {{--                            {{ $tag->name }}--}}
-            {{--                        </a>--}}
-            {{--                    @endforeach--}}
-            {{--                </div>--}}
-            {{--            </div>--}}
-            {{--        @endif--}}
+            <!-- Wave Separator -->
+            <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+                <svg class="relative block w-full h-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#f9fafb"></path>
+                </svg>
+            </div>
+        </div>
 
-            <!-- Comments Section -->
-            {{--        <section class="border-t pt-8">--}}
-            {{--            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Comments</h2>--}}
+        <!-- Main Content Area -->
+        <article class="container mx-auto max-w-4xl px-4 -mt-8 relative z-10">
+            <!-- Featured Image Card -->
+            <div class="bg-white rounded-2xl shadow-2xl overflow-hidden mb-12 transform hover:shadow-3xl transition-all duration-300">
+                <div class="relative">
+                    <img src="{{ \Illuminate\Support\Facades\Storage::url($article->image) }}"
+                         alt="{{ $article->title }}"
+                         class="w-full h-96 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
 
-            {{--            <!-- List comments -->--}}
-            {{--            @forelse($article->comments as $comment)--}}
-            {{--                <div class="mb-6">--}}
-            {{--                    <div class="text-gray-700 font-medium">{{ $comment->author_name }}</div>--}}
-            {{--                    <div class="text-gray-600 text-sm mb-2"><time datetime="{{ $comment->created_at->toDateString() }}">{{ $comment->created_at->diffForHumans() }}</time></div>--}}
-            {{--                    <p class="text-gray-800">{{ $comment->content }}</p>--}}
-            {{--                </div>--}}
-            {{--            @empty--}}
-            {{--                <p class="text-gray-600">No comments yet. Be the first to comment!</p>--}}
-            {{--            @endforelse--}}
+                    <!-- Image Overlay Info -->
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <div class="bg-white/90 backdrop-blur-sm rounded-lg p-4">
+                            <p class="text-gray-600 text-sm">
+                                {!! $article->content !!}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            {{--            <!-- Comment form -->--}}
-            {{--            <form action="{{ route('comments.store', $article) }}" method="POST" class="mt-6">--}}
-            {{--                @csrf--}}
-            {{--                <div class="mb-4">--}}
-            {{--                    <label for="author_name" class="block text-gray-700 font-medium mb-1">Your Name</label>--}}
-            {{--                    <input type="text" name="author_name" id="author_name" required--}}
-            {{--                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">--}}
-            {{--                </div>--}}
-            {{--                <div class="mb-4">--}}
-            {{--                    <label for="content" class="block text-gray-700 font-medium mb-1">Comment</label>--}}
-            {{--                    <textarea name="content" id="content" rows="4" required--}}
-            {{--                              class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>--}}
-            {{--                </div>--}}
-            {{--                <button type="submit" class="px-6 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition">--}}
-            {{--                    Post Comment--}}
-            {{--                </button>--}}
-            {{--            </form>--}}
-            {{--        </section>--}}
+
+
+            <!-- Call to Action Section -->
+            <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-8 text-center text-white mb-12">
+                <h3 class="text-2xl font-bold mb-4">Enjoyed this article?</h3>
+                <p class="text-white/90 mb-6">
+                    Discover more insightful content from {{ $article->author->username }}
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="{{ route('author.articles', $article->author->username) }}"
+                       class="bg-white text-indigo-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+                        More from {{ $article->author->username }}
+                    </a>
+                    <a href="{{ route('articles.index') }}"
+                       class="bg-white/10 backdrop-blur-sm text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/20 transition border border-white/20">
+                        Browse All Articles
+                    </a>
+                </div>
+            </div>
         </article>
     </div>
 @endsection
