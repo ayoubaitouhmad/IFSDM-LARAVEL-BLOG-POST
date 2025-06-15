@@ -10,16 +10,16 @@
                     <div class="container mx-auto px-6 py-4">
                         <div class="flex items-center justify-between">
                             <h1 class="text-2xl font-semibold text-gray-900">Products</h1>
-                            @isset($currentUser)
-                                <button
+                            @auth
+                                <a href="{{ route('user.articles.create') }}"
                                     class="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                               d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                                     </svg>
                                     Add New article
-                                </button>
-                            @endisset
+                                </a>
+                            @endauth
                         </div>
                     </div>
                 </div>
@@ -193,7 +193,7 @@
             <main class="container mx-auto px-6 py-8 ">
                 <div id="articles" class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                     @foreach($articles as $article)
-                        <x-article-card :article="$article"></x-article-card>
+                        <x-article-card :article="$article" :show-crud-buttons="$showCrudButtons"/>
                     @endforeach
                 </div>
                 <div class="flex justify-center mt-12">
@@ -223,7 +223,7 @@
                 </p>
 
                 <!-- Action Button -->
-                @isset($currentUser)
+                @auth
 
                     <a href="{{ route('user.articles.create') }}"
                        class="mt-6 inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
@@ -236,7 +236,7 @@
                         </svg>
                         New article
                     </a>
-                @endisset
+                @endauth
             </div>
         @endif
 

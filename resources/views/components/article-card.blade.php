@@ -4,7 +4,7 @@
         @canany(['update', 'delete'], $article)
             <div class="absolute top-4 right-4 flex space-x-2">
                 @can('update', $article)
-                    <a href="{{ route('user.articles.edit', $article) }}"
+                    <a href="{{ route('user.articles.show', $article) }}"
                        class="px-3 py-1 bg-indigo-600 text-white text-sm font-medium rounded-full shadow hover:bg-indigo-700 transition">
                         Edit
                     </a>
@@ -20,14 +20,9 @@
                         </button>
                     </form>
                 @endcan
-
-
             </div>
-
         @endcanany
-
     @endif
-
 
     <img
         src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?q=80&w=3869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"

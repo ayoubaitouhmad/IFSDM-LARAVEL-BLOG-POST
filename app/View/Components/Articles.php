@@ -18,6 +18,7 @@ class Articles extends Component
     public int $activeFilters = 0 ;
     public  $filterRoute ;
     public bool $showFilterByUser ;
+    public bool $showCrudButtons ;
 
     /**
      * @param $articles
@@ -29,12 +30,14 @@ class Articles extends Component
         int $activeFilters = 0,
         bool $showHeader = false,
         bool $showFilterByUser = false,
+        bool $showCrudButtons = false
     )
     {
         $this->articles = $articles;
         $this->filterRoute = $filterRoute;
         $this->showHeader = $showHeader;
         $this->showFilterByUser = $showFilterByUser;
+        $this->showCrudButtons = $showCrudButtons;
         if($this->showHeader){
             $this->users = User::getAllForSelect();
             $this->orderByOptions = OrderBy::toArray();

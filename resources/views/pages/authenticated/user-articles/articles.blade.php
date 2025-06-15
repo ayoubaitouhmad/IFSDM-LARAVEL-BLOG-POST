@@ -4,5 +4,9 @@
         :articles="$articles"
         :filter-route="route('user.articles.index')"
         :show-header="true"
-        :active-filters="$activeFilters" />
+        :active-filters="$activeFilters"
+
+
+
+    />
 @endsection
