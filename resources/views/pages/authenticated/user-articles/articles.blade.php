@@ -5,7 +5,7 @@
         :filter-route="route('user.articles.index')"
         :show-header="true"
         :active-filters="$activeFilters"
-
+        :show-crud-buttons="true"
 
 
     />

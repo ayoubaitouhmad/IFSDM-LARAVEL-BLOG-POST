@@ -4,7 +4,6 @@
         <nav class="hidden md:flex space-x-8 font-medium">
             <a href="{{ route('home') }}" class="hover:text-indigo-600 transition">Home</a>
             <a href="{{ route('articles.index') }}" class="hover:text-indigo-600 transition">Articles</a>
-            <a href="#" class="hover:text-indigo-600 transition">About</a>
         </nav>
         <div class="flex items-center space-x-4">
             <div class="hidden md:flex items-center space-x-2">

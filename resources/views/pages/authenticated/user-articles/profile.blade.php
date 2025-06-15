@@ -38,15 +38,15 @@
                 <label for="username" class="block text-gray-700 font-medium mb-1">Username</label>
                 <input
                     type="text"
+                    name="username"
                     id="username"
                     value="{{ auth()->user()->username }}"
-                    disabled
-                    class="w-full px-4 py-2 border bg-gray-100 rounded-lg cursor-not-allowed"
+                    class="w-full px-4 py-2 border  rounded-lg "
                 />
             </div>
-
-            {{-- Submit --}}
             <button
+
+                {{-- Submit --}}
                 type="submit"
                 class="mt-4 px-6 py-3 bg-indigo-600 text-white rounded-full font-medium hover:bg-indigo-700 transition"
             >
