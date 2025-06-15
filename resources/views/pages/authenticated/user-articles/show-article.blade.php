@@ -9,7 +9,6 @@
             @csrf
             @method('PUT')
 
-            <input  value="{{ $article->id }}" name="id">
             <!-- Title -->
             <div>
                 <label for="title" class="block text-gray-700 font-medium mb-1">Title<span class="text-red-500">*</span></label>
