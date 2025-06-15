@@ -11,18 +11,14 @@
                 <div class="flex items-center text-gray-500 text-sm">
                     <span>By <a href="{{ route('author.articles', $article->author->username) }}"  class="font-medium text-blue-600 hover:underline">{{ $article->author->username }}</a></span>
                     <span class="mx-2">•</span>
-                                    <time datetime="{{ $article->published_at->toDateString() }}">{{ $article->published_at->format('F j, Y') }}</time>
+                                    <time datetime="{{ $article->published_at?->toDateString() }}">{{ $article->published_at?->format('F j, Y') }}</time>
                 </div>
             </header>
 
 
-            @if($article->image)
-                <div class="mb-8">
-                    <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}"
-                         class="w-full rounded-lg shadow-lg">
-                </div>
-            @endif
-
+            <img
+                src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?q=80&w=3869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Learn Tailwind CSS" class="h-33 W-full object-cover rounded-lg mb-6">
             <!-- Content -->
             <div class="prose prose-lg max-w-none mb-12">
                 {!! $article->content !!}

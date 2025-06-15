@@ -25,10 +25,8 @@ Route::name('articles.')->prefix('articles')
     });
 
 
-Route::name('author.')->prefix('@{username}')
-    ->controller(UserArticleController::class)->group(function () {
-        Route::get('articles', 'index')->name('articles');
-    });
+Route::name('author.')->prefix('@{username}')->get('articles' , AuthorArticleController::class)->name('articles');
+
 
 Route::middleware(['auth', 'auth:sanctum'])->group(function () {
     Route::name('user.')->prefix('@me')
