@@ -97,7 +97,7 @@
                                     <!-- Export Button -->
 
                                     <x-form.select placeholder="order by" wrapper-class="flex"
-                                                   :value="request('f-orderBy')" name="f-orderBy" label="trie par"
+                                                   :value="request('f-orderBy')" name="f-orderBy"
                                                    :options="$orderByOptions"
                                                    value="{{ request('f-orderBy') }}"/>
 

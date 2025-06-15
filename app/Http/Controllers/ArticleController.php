@@ -43,9 +43,7 @@ class ArticleController extends Controller
             ->latest()
             ->paginate(10)
             ->withQueryString();
-//        dd(
-//            $articles
-//        );
+
         return view('articles.home', [
             "activeFilters" => $activeFilters,
             "articles" => $articles,

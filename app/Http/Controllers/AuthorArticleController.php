@@ -40,6 +40,7 @@ class AuthorArticleController extends Controller
 
         $articles = $query
             ->latest()
+            ->where('status', \App\Enums\ArticleStatus::PUBLISHED->value)
             ->paginate(10)
             ->withQueryString();
 
@@ -47,6 +48,7 @@ class AuthorArticleController extends Controller
         return view('pages.author.user-articles.articles', [
             "activeFilters" => $activeFilters,
             "articles" => $articles,
+            'user' => $user,
             "input"=>$request->all()
         ]);
 
