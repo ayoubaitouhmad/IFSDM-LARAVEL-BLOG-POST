@@ -33,7 +33,8 @@
                     <!-- Author and Date Info -->
                     <div class="flex items-center justify-center space-x-6 text-white/90 mb-8">
                         <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                            <div
+                                class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
                                 <i class="fa-solid fa-user text-white text-sm"></i>
                             </div>
                             <div class="text-left">
@@ -48,7 +49,8 @@
                         <div class="w-px h-12 bg-white/20"></div>
 
                         <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                            <div
+                                class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
                                 <i class="fa-solid fa-calendar text-white text-sm"></i>
                             </div>
                             <div class="text-left">
@@ -69,7 +71,7 @@
                         </div>
                         <div class="flex items-center space-x-2">
                             <i class="fa-solid fa-clock"></i>
-                            <span>{{ ceil(str_word_count(strip_tags($article->content)) / 200) }} min read</span>
+                            <span class="text-white"> {{ $article->published_at->format('M j, Y') }}</span>
                         </div>
                     </div>
                 </header>
@@ -77,8 +79,11 @@
 
             <!-- Wave Separator -->
             <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
-                <svg class="relative block w-full h-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#f9fafb"></path>
+                <svg class="relative block w-full h-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                     preserveAspectRatio="none">
+                    <path
+                        d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
+                        fill="#f9fafb"></path>
                 </svg>
             </div>
         </div>
@@ -86,24 +91,22 @@
         <!-- Main Content Area -->
         <article class="container mx-auto max-w-4xl px-4 -mt-8 relative z-10">
             <!-- Featured Image Card -->
-            <div class="bg-white rounded-2xl shadow-2xl overflow-hidden mb-12 transform hover:shadow-3xl transition-all duration-300">
-                <div class="relative">
-                    <img src="{{ \Illuminate\Support\Facades\Storage::url($article->image) }}"
-                         alt="{{ $article->title }}"
-                         class="w-full h-96 object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+            <div
+                class="bg-white rounded-2xl shadow-2xl overflow-hidden mb-12 transform hover:shadow-3xl transition-all duration-300">
 
-                    <!-- Image Overlay Info -->
-                    <div class="absolute bottom-6 left-6 right-6">
-                        <div class="bg-white/90 backdrop-blur-sm rounded-lg p-4">
-                            <p class="text-gray-600 text-sm">
-                                {!! $article->content !!}
-                            </p>
-                        </div>
+                <img src="{{ \Illuminate\Support\Facades\Storage::url($article->image) }}"
+                     alt="{{ $article->title }}"
+                     class="w-full h-96 object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+
+                <div class=" bottom-6 left-6 right-6">
+                    <div class="bg-white/90 backdrop-blur-sm rounded-lg p-4">
+                        <p class="text-gray-600 text-sm">
+                            {!! $article->content !!}
+                        </p>
                     </div>
                 </div>
             </div>
-
 
 
             <!-- Call to Action Section -->
